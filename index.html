@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href=" http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/base/jquery-ui.css"/>
+    <style type="text/css">
+.tri-down {
+
+    /* Styling block element, not required */
+    position: relative;
+    margin-bottom: 2em;
+    padding: 1em;
+    border-bottom: 1px solid #999;
+    background: #f3f3f3;
+  }
+
+  /* Required for Down Triangle */
+  .tri-down:before, .tri-down:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom: 0;
+  }
+
+  /* Stroke */
+  .tri-down:before {
+    bottom: -16px;
+    left: 21px;
+
+    /* If 1px darken stroke slightly */
+    border-top-color: #777;
+    border-width: 16px;
+  }
+
+  /* Fill */
+  .tri-down:after {
+    bottom: -15px;
+    left: 22px;
+    border-top-color: #f3f3f3;
+    border-width: 15px;
+  }
+  /*logo positioning*/
+  .chatApp{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+  .chatLogo{
+    float: right;
+    cursor: pointer;
+  }
+  .initialText{
+    background-color: #ffffff;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    position: relative;
+    right: 22px;
+    cursor: pointer;
+  }
+  .arrow{
+    width: 0;
+    height: 0;
+    border-top: 10px solid #ffffff;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    position: relative;
+    right: 26px;
+    left: 159px;
+  }
+  .chatSection{
+    width: 35%;
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+  .chatHeader{
+    border-bottom: 3px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .headerText{
+    width: 70%;
+  }
+  .headerText, .closeIcon{
+    display: inline-block;
+    font-size: 25px;
+  }
+  .closeIcon {
+    float: right;
+    margin-top: 8px;
+    margin-right: 20px;
+  }
+  .hidden{
+    right: -1000px;
+  }
+  .hide{
+    display: none;
+  }
+  .noPadding{
+    padding: 0;
+  }
+  .chatFooter{
+    width: 100%;
+    position: absolute;
+    border-top: 3px solid gray;
+    bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .mic{
+    padding-top: 8px;
+  }
+
+</style>
+  </head>
+  <body style="background-color: orange;">
+      <h1>DialogFlow Demo</h1>
+      <div class="tri-down">Box with Down Triangle a.k.a. "Nubbin"</div>
+      <div class="chatSection hidden">
+          <div class="chatHeader">
+            <div class="headerText text-center">Ask Scopus</div>
+            <!-- <div class="glyphicon glyphicon-remove closeIcon" aria-hidden="true"></div> -->
+            <div class="closeIcon pull-right"><i class="far fa-times-circle"></i></div>
+          </div>
+          <div class="chatBody"></div>
+          <div class="chatFooter">
+            <div class="row">
+                <div class="col-md-2 logo"><img src="EVE1.ico" height="50px" width="50px"/></div>
+                <div class="col-md-8 input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="How can I help you?"/>
+                </div>
+                <div class="col-md-2 mic">
+                  <img src="mic.ico" height="30px" width="30px"/>
+                </div>
+              </div>
+          </div>
+      </div>
+      <div class="chatApp">
+          <div class="initialText">Hi! I am your Scopus Assistant. </br>How may I help you?
+          </div>
+          <div class="arrow"></div>
+          <div class="chatLogo"><img src="EVE1.ico" height="100px" width="100px"/></div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="./fontawesome-free-5.0.6/fontawesome-free-5.0.6/on-server/js/fontawesome-all.js"></script>
+      <script src="./script.js"></script>
+  </body>
+</html>
