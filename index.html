@@ -117,6 +117,32 @@
   .mic{
     padding-top: 8px;
   }
+  .userQuestion{
+    background-color: #4080ff;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 12px;
+    float: left;
+    display: inline-block;
+    max-width: 80%;
+  }
+  .eveAnswer{
+    background-color: #f1f0f0;
+    color: #4b4f56;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 12px;
+    float: right;
+    display: inline-block;
+    max-width: 80%;
+  }
+  .clearLeft{
+    clear: left;
+  }
+  .clearRight{
+    clear: right;
+  }
 
 </style>
   </head>
@@ -129,12 +155,13 @@
             <!-- <div class="glyphicon glyphicon-remove closeIcon" aria-hidden="true"></div> -->
             <div class="closeIcon pull-right"><i class="far fa-times-circle"></i></div>
           </div>
-          <div class="chatBody"></div>
+          <div class="chatBody">
+          </div>
           <div class="chatFooter">
             <div class="row">
                 <div class="col-md-2 logo"><img src="EVE1.ico" height="50px" width="50px"/></div>
                 <div class="col-md-8 input-group input-group-lg">
-                    <input type="text" class="form-control" placeholder="How can I help you?"/>
+                    <input type="text" id="inputText" class="form-control" placeholder="How can I help you?"/>
                 </div>
                 <div class="col-md-2 mic">
                   <img src="mic.ico" height="30px" width="30px"/>
