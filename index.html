@@ -53,7 +53,8 @@
     cursor: pointer;
   }
   .initialText{
-    background-color: #ffffff;
+    background-color: #007398;
+    color: #ffffff;
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -179,6 +180,82 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="./fontawesome-free-5.0.6/fontawesome-free-5.0.6/on-server/js/fontawesome-all.js"></script>
-      <script src="./script.js"></script>
+      <script>
+		jQuery(document).ready(function(){
+  jQuery(".chatLogo, .initialText").on("click",function(){
+      jQuery('.chatSection').animate({"right":"0px"}, "slow").addClass('visible');
+      jQuery(".chatApp").addClass("hide");
+  });
+  jQuery(".closeIcon").on("click",function(){
+      jQuery(".chatSection").animate({"right":"-1000px"}, "slow").removeClass('visible');
+      jQuery(".chatApp").removeClass("hide");
+  });
+  jQuery("#inputText").on("keypress",function(e){
+    if(e.keyCode == 13){
+      var userSays = jQuery("#inputText").val();
+      console.log(userSays);
+      jQuery("#inputText").val('');
+      send(userSays);
+      var qContainer = jQuery("<div>");
+      var ansContainer = jQuery("<div>");
+      var userQ = jQuery("<div>",{
+        "html": userSays,
+        "class": "userQuestion"
+      });
+      var userQtail = jQuery("<div>",{
+        "class": "userQtail"
+      });
+      var eveAnswer = jQuery("<div>",{
+        "html": "Loading...",
+        "class": "eveAnswer"
+      });
+      var eveTail = jQuery("<div>",{
+        "class": "eveTail"
+      });
+      var clearDivLeft = jQuery("<div>",{
+        "class": "clearLeft"
+      });
+      var clearDivRight = jQuery("<div>",{
+        "class": "clearRight"
+      });
+      qContainer.append(userQ);
+      qContainer.append(clearDivLeft);
+      qContainer.append(userQtail).append("</br>");
+      jQuery(".chatBody").append(qContainer);
+      ansContainer.append(eveAnswer).append(clearDivRight).append(eveTail).append("</br>");
+      jQuery(".chatBody").append(ansContainer);
+    }
+  });
+  function send(userSays) {
+			var text = userSays;
+      var url = "https://api.dialogflow.com/v1/query?v=20150910";
+      var accessToken = "88cb98a1cacb4ec4804cd24d0cf86d73";
+	  var user = "nadeem";
+			$.ajax({
+				type: "POST",
+				url: url,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				headers: {
+					"Authorization": "Bearer " + accessToken
+				},
+				data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing", user: user}),
+				success: function(data) {
+          console.log("succesful chat");
+					//setResponse(JSON.stringify(data, undefined, 2));
+          console.log(data.result.fulfillment.speech);
+          setResponse(data.result.fulfillment.speech);
+				},
+				error: function() {
+					setResponse("Internal Server Error");
+				}
+			});
+		}
+    function setResponse(val) {
+			jQuery(".chatBody div.eveAnswer").last().html(val);
+		}
+});
+
+	  </script>
   </body>
 </html>

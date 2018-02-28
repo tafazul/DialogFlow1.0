@@ -1,0 +1,133 @@
+jQuery(document).ready(function(){
+    jQuery(".chatLogo, .initialText").on("click",function(){
+        jQuery('.chatSection').animate({"right":"0px"}, "slow").addClass('visible').removeClass("hidden");
+        jQuery(".chatApp").addClass("hide");
+    });
+    jQuery(".closeIcon").on("click",function(){
+        jQuery(".chatSection").animate({"right":"-1000px"}, "slow").removeClass('visible');
+        jQuery(".chatApp").removeClass("hide");
+    });
+    jQuery("#inputText").on("keypress",function(e){
+      if(e.keyCode == 13){
+        var userSays = jQuery("#inputText").val();
+        console.log(userSays);
+        jQuery("#inputText").val('');
+        send(userSays);
+        var qContainer = jQuery("<div>");
+        var ansContainer = jQuery("<div>");
+        var userQ = jQuery("<div>",{
+          "html": userSays,
+          "class": "userQuestion"
+        });
+        var userQtail = jQuery("<div>",{
+          "class": "userQtail"
+        });
+        var eveAnswer = jQuery("<div>",{
+          "html": "Loading...",
+          "class": "eveAnswer"
+        });
+        var eveTail = jQuery("<div>",{
+          "class": "eveTail"
+        });
+        var clearDivLeft = jQuery("<div>",{
+          "class": "clearLeft"
+        });
+        var clearDivRight = jQuery("<div>",{
+          "class": "clearRight"
+        });
+        qContainer.append(userQ);
+        qContainer.append(clearDivLeft);
+        qContainer.append(userQtail).append("</br>");
+        jQuery(".chatBody").append(qContainer);
+        ansContainer.append(eveAnswer).append(clearDivRight).append(eveTail).append("</br>");
+        jQuery(".chatBody").append(ansContainer);
+      }
+    });
+    function send(userSays) {
+              var text = userSays;
+        var url = "https://api.dialogflow.com/v1/query?v=20150910";
+        var accessToken = "88cb98a1cacb4ec4804cd24d0cf86d73";
+        var user = "nadeem";
+              $.ajax({
+                  type: "POST",
+                  url: url,
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  headers: {
+                      "Authorization": "Bearer " + accessToken
+                  },
+                  data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing", user: user}),
+                  success: function(data) {
+            console.log("succesful chat");
+                      //setResponse(JSON.stringify(data, undefined, 2));
+            console.log(data.result.fulfillment.speech);
+            setResponse(data.result.fulfillment.speech);
+            var say=""; 
+            say = data.result.fulfillment.speech;
+            
+            synth = window.speechSynthesis;
+            var utterThis = new SpeechSynthesisUtterance(say);
+            //utterThis.lang = "en-US";
+            synth.speak(utterThis);
+            if(data.result.action == "Navigation" && data.result.parameters.page==="alerts" ){
+                console.log("goto alerts page");
+                jQuery("#headerMyAlerts span").click();
+            }
+                  },
+                  error: function() {
+                      setResponse("Internal Server Error");
+                  }
+              });
+          }
+    jQuery("#speak").on("click",function(){switchAudio()});
+    var recognition;
+    function switchAudio(){if (recognition) {
+        stopRecognition();
+    } else {
+        startRecognition();
+    }}
+    function startRecognition() {
+        recognition = new webkitSpeechRecognition();
+        recognition.onstart = function(event) {
+            updateRec();
+        };
+        recognition.onresult = function(event) {
+            var text = "";
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                text += event.results[i][0].transcript;
+            }
+            setInput(text);
+            stopRecognition();
+        };
+        recognition.onend = function() {
+            stopRecognition();
+        };
+        recognition.lang = "en-US";
+        recognition.start();
+    }
+    function setInput(text) {
+        jQuery("#inputText").val(text);
+        var e = jQuery.Event("keypress");
+        e.which = 13; //choose the one you want
+        e.keyCode = 13;
+        jQuery("#inputText").trigger(e);
+        jQuery("#inputText").val(text);
+    }
+    function updateRec() {
+        if(recognition){
+            jQuery("#speak").css("background-color","red");
+        }else{
+            jQuery("#speak").css("background-color","white")}
+    
+    }
+function stopRecognition() {
+        if (recognition) {
+            recognition.stop();
+            recognition = null;
+        }
+        updateRec();
+    }
+      function setResponse(val) {
+              jQuery(".chatBody div.eveAnswer").last().html(val);
+          }
+  });

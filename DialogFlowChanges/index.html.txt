@@ -1,0 +1,176 @@
+
+<style type="text/css">
+.tri-down {
+
+    /* Styling block element, not required */
+    position: relative;
+    margin-bottom: 2em;
+    padding: 1em;
+    border-bottom: 1px solid #999;
+    background: #f3f3f3;
+  }
+
+  /* Required for Down Triangle */
+  .tri-down:before, .tri-down:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom: 0;
+  }
+
+  /* Stroke */
+  .tri-down:before {
+    bottom: -16px;
+    left: 21px;
+
+    /* If 1px darken stroke slightly */
+    border-top-color: #777;
+    border-width: 16px;
+  }
+
+  /* Fill */
+  .tri-down:after {
+    bottom: -15px;
+    left: 22px;
+    border-top-color: #f3f3f3;
+    border-width: 15px;
+  }
+  /*logo positioning*/
+  .chatApp{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+  .chatLogo{
+    float: right;
+    cursor: pointer;
+  }
+  .initialText{
+  	background-color: #007398;
+    color: #ffffff;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    position: relative;
+    right: 22px;
+    cursor: pointer;
+  }
+  .arrow{
+    width: 0;
+    height: 0;
+    border-top: 10px solid #007398;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    position: relative;
+    right: 26px;
+    left: 159px;
+  }
+  .chatSection{
+    width: 35%;
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+  .chatHeader{
+    border-bottom: 3px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .headerText{
+    width: 70%;
+  }
+  .headerText, .closeIcon{
+    display: inline-block;
+    font-size: 25px;
+  }
+  .closeIcon {
+    float: right;
+    margin-top: 8px;
+    margin-right: 20px;
+  }
+  .hidden{
+    right: -1000px;
+  }
+  .hide{
+    display: none;
+  }
+  .noPadding{
+    padding: 0;
+  }
+  .chatFooter{
+    width: 100%;
+    position: absolute;
+    border-top: 3px solid gray;
+    bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .mic{
+    padding-top: 8px;
+  }
+  .userQuestion{
+    background-color: #4080ff;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 12px;
+    float: left;
+    display: inline-block;
+    max-width: 80%;
+  }
+  .eveAnswer{
+    background-color: #f1f0f0;
+    color: #4b4f56;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 12px;
+    float: right;
+    display: inline-block;
+    max-width: 80%;
+  }
+  .clearLeft{
+    clear: left;
+  }
+  .clearRight{
+    clear: right;
+  }
+  .chatBody{
+  	max-height: 800px;
+  	overflow-y: scroll;
+  }
+
+</style>
+
+<div class="chatSection hidden">
+          <div class="chatHeader">
+          	<div class="displayInlineBlock marginLeft1"><img src="/static/proteus-images/EVE1.ico" height="50px" width="50px"/></div>
+            <div class="headerText text-center">Ask Eve - <em>Your Scopus Assistant</em></div>
+            <div class="closeIcon pull-right"><img src="/static/proteus-images/close.svg" height="25px" width="25px"/></div>
+          </div>
+          <div class="chatBody">
+          </div>
+          <div class="chatFooter">
+            <div class="row">
+                <div class="col-md-10 paddingLeft2">
+                	<div class="input-group input-group-lg" style="width: -webkit-fill-available;">
+                    <input type="text" id="inputText" class="form-control" placeholder="How can I help you?"/>
+                    </div>
+                </div>
+                <div class="col-md-2 mic paddingLeft1">
+                  <img id="speak" src="/static/proteus-images/mic.ico" height="30px" width="30px"/>
+                </div>
+              </div>
+          </div>
+      </div>
+<div class="chatApp">
+          <div class="initialText">Hi! I am Eve, your Scopus Assistant. </br>How may I help you?
+          </div>
+          <div class="arrow"></div>
+          <div class="chatLogo"><img src="/static/proteus-images/EVE1.ico" alt="eve icon"  height="100px" width="100px" /></div>
+      </div>
